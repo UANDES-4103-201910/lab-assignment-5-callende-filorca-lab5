@@ -1,5 +1,6 @@
 class EventsController < ApplicationController
 	#before_action :set_event , only[:show, :destroy, :update]
+	skip_before_action :verify_authenticity_token
   def create
 	@event = Event.create(params[:name], params[:description], params[:start_date],params[:event_venues_id])
 	render json: @event

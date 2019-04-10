@@ -1,5 +1,6 @@
 class EventVenuesController < ApplicationController
 	before_action :set_event_venue , only[:show, :destroy, :update]
+	skip_before_action :verify_authenticity_token
   def create
 	@event_venue = EventVenue.create(params[:name], params[:address], params[:capacity])
 	render json: @event_venue
