@@ -1,12 +1,16 @@
 class UsersController < ApplicationController
 	#before_action :set_user , only[:show, :destroy, :update]
+	skip_before_action :verify_authenticity_token
   def create
-	@user = User.create(params[:name], params[:lastname], params[:email], 	params[:password], params[:address])
+	@user = User.create(params[:name], params[:lastname], params[:email], params[:password], params[:address])
 	render json: @user
   end
 
   def destroy
-	@user =User.find(params[:id]).destroy
+	@user =User.find(params[:id])
+	@user.destroy
+	#@user.destroy
+	#head :no_content
     	respond_to do |format|
       	format.html { redirect_to root_url }
       	format.json { head :no_content }
@@ -15,8 +19,8 @@ class UsersController < ApplicationController
 
   def update
 	@user = User.find(params[:id])
-    if @user.update(params[:name], params[:lastname], params[:email], 		params[:password], params[:address])
-    	@user = User.update(params[:name], params[:lastname], params[:email], 		params[:password], params[:address])
+    if @user.update_attributes(user_params)
+    	@user = User.update(params[:name], params[:lastname], params[:email], params[:password], params[:address])
 	format.json {head :no_content }
 
     else
@@ -28,4 +32,7 @@ class UsersController < ApplicationController
 	@user = User.find(params[:id])
 	render json: @user
   end
+	def user_params
+	  params.require(:user).permit(:name, :lastname, :email, :password, :address)
+	end
 end
