@@ -19,8 +19,12 @@ Rails.application.routes.draw do
   put 'tickets/:id',to: 'tickets#update'
   get 'tickets/:id',to: 'tickets#show'
 
+  get 'user_with_most_tickets',to: 'users#user_with_most_tickets'
+  get'upcoming_events',to: 'events#upcoming_events'
+
 	resources :ticket_types do
 	resources :tickets
+	end
   
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

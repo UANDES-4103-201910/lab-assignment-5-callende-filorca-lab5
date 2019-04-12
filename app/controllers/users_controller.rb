@@ -32,5 +32,10 @@ class UsersController < ApplicationController
 	def user_params
 	  params.require(:user).permit(:name, :lastname, :email, :password, :address)
 	end
+
+  def user_with_most_tickets
+	@user = User.joins(:orders => :tickets).group(:user_id).order(:desc).limit(1)
+	render json: @user
+  end
 end
 #{"user":{"name":"AAA","lastname":"BBB","email":null,"password":"ABC","address":"CBA"}}

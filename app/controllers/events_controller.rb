@@ -32,4 +32,11 @@ class EventsController < ApplicationController
 	def event_params
 	  params.require(:event).permit(:name, :description, :start_date, :event_venue_id)
 	end
+
+  def upcoming_events
+	#hoy = Date.today
+	#3meses = Date.today.next_month(3)
+	#@event = Event.where( events: {start_date>=? AND start_date < ?,hoy,3meses} )
+	#render json: @event
+  end
 end
